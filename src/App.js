@@ -23,6 +23,17 @@ class App extends Component {
       ]
     })
   }
+
+  nameChangedHandler = (event) => {
+    this.setState({
+      persons: [
+        { name: event.target.value, age: 23 },
+        { name: 'Manu', age: 114 },
+        { name: 'Stephanie', age: 57 }
+      ]
+    })
+  }
+
   // bind is more efficient than anonymous function
   render () {
     return (
@@ -30,7 +41,11 @@ class App extends Component {
         <h1>Hi, I'm a React App!</h1>
         <p>class is not used in JSX</p>
         <button onClick={ () => this.switchNameHandler('Better')} >Switch Name</button>
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+        <Person 
+          name={this.state.persons[0].name} 
+          age={this.state.persons[0].age}
+          changed={this.nameChangedHandler}
+        />
         <Person name={this.state.persons[1].name} age={this.state.persons[1].age}/>
         <Person 
           name={this.state.persons[2].name} 
