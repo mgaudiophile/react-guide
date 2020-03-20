@@ -42,13 +42,20 @@ class App extends Component {
 
   // bind is more efficient than anonymous function
   render () {
-    return (
-      <div className="App">
-        <h1>Hi, I'm a React App!</h1>
-        <p>class is not used in JSX</p>
-        <button onClick={this.togglePersonsHandler} >Switch Name</button>
-        { this.state.showPersons === true ? 
-          <div>
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
+
+    let persons = null;
+
+    if (this.state.showPersons) {
+      // persons is holding JSX code
+      persons = (
+        <div>
           <Person 
             name={this.state.persons[0].name} 
             age={this.state.persons[0].age}
@@ -60,8 +67,18 @@ class App extends Component {
             age={this.state.persons[2].age} 
             click={this.switchNameHandler.bind(this, 'Secret')}>My Hobbies: Racing!
           </Person>
-        </div> : null
-        }
+        </div>
+      );
+    }
+
+    return (
+      <div className="App">
+        <h1>Hi, I'm a React App!</h1>
+        <p>class is not used in JSX</p>
+        <button 
+          style={style}
+          onClick={this.togglePersonsHandler} >Toggle Persons</button>
+        {persons}
       </div>
     );
   }
