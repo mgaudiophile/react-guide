@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.module.css';
-import Person from '../components/Persons/Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -44,47 +45,25 @@ class App extends Component {
     this.setState({showPersons: !doesShow});
   }
 
-  // bind is more efficient than anonymous function
   render () {
     let persons = null;
-    let btnClass = '';
 
     if (this.state.showPersons) {
       // persons is holding JSX code
-      // mapping javascript object to JSX
-      // style is changed dynamically
       persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return <Person 
-                    click={() => this.deletePersonHandler(index)}
-                    name={person.name}
-                    age={person.age}
-                    key={person.id}
-                    changed={(event) => this.nameChangedHandler(event, person.id)} />
-          })}
-        </div>
+          <Persons
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangedHandler} />
       );
-
-      btnClass = classes.Red;
-    }
-
-    const assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.Red);
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.Bold);
     }
 
     return (
       <div className={classes.App}>
-        <h1>Hi, I'm a React App!</h1>
-        <p className={assignedClasses.join(' ')}>This is working!</p>
-        <button
-          className={btnClass}
-          onClick={this.togglePersonsHandler} >Toggle Persons
-        </button>
+        <Cockpit 
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler} />
         {persons}
       </div>
     );
