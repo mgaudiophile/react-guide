@@ -68,6 +68,10 @@ class App extends Component {
     this.setState({showPersons: !doesShow});
   }
 
+  componentWillUnmount() {
+    console.log('App.js componentWillUnmount()');
+  }
+
   render () {
     console.log('App.js render()');
     let persons = null;
